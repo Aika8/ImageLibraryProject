@@ -1,0 +1,17 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#8F8C57</item>
+        <item name="colorPrimaryDark">#2B2B2B</item>
+        <item name="colorAccent">#FF80CD</item>
+        <item name="android:textColorHighlight">#3CFF5722</item>
+    </style>
+
+    <style name="BaseTextStyle">
+        <item name="android:fontFamily">@font/comfortaa</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+</resources>

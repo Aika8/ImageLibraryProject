@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Приложение</string>
+
+    <string name="placeholder">there will be some text</string>
+
+    <string name="button_text_1">Cats</string>
+    <string name="button_text_2">Dogs</string>
+    <string name="button_text_3">Anime</string>
+    <string name="button_text_4">Films</string>
+    <string name="button_text_5">Comics</string>
+    <string name="button_text_6">Arts</string>
+
+    <string name="ImageLoaderFailUpper1">Что-то пошло не так</string>
+    <string name="ImageLoaderFailUpper2">Не удалось загрузить</string>
+    <string name="ImageLoaderFailFooter1">Попробуй подключить интернет</string>
+    <string name="ImageLoaderFailFooter2">Наверное дело в интернете</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
