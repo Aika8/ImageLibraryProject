@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void activitySwitcher(String albumID){
+    public void activitySwitcher(String q){
         Intent intentMain = new Intent(MainActivity.this ,
                PressedActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString("albumID", albumID);
+        bundle.putString("q", q);
         intentMain.putExtras(bundle);
         MainActivity.this.startActivity(intentMain);
     }
@@ -87,22 +87,22 @@ public class MainActivity extends AppCompatActivity {
     public void onButtonClick(View view){
         switch (view.getId()){
             case R.id.button_1:
-                activitySwitcher( "axpkkpZ");
+                activitySwitcher( "cat");
                 break;
             case R.id.button_2:
-                activitySwitcher( "bjtGGNs");
+                activitySwitcher( "dog");
                 break;
             case R.id.button_3:
-                activitySwitcher("MpAYelh");
+                activitySwitcher("naruto");
                 break;
             case R.id.button_4:
-                activitySwitcher("M7Apxvf");
+                activitySwitcher("film");
                 break;
             case R.id.button_5:
-                activitySwitcher("Qqzo086");
+                activitySwitcher("comic");
                 break;
             case R.id.button_6:
-                activitySwitcher("hYmnbY8");
+                activitySwitcher("art");
                 break;
         }
     }

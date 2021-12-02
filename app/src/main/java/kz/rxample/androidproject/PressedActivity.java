@@ -76,45 +76,11 @@ public class PressedActivity extends AppCompatActivity {
         });
     }
 
-    /*
-        All functions described below are executed in order to maintain Text Setter to work properly
-
-        Text_Setter - function that loads both upper and footer text
-        Return_Random_Line - function that takes file name and start and end point if needed and then returns random line from given file
-        copyListener - listens to long click on text that has benn set and then copying it to clipboard
-     */
-
-
-
-    private String Return_Random_Line(String fileName) {
-        Scanner s = null;
-        try {
-            s = new Scanner(getAssets().open(fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        ArrayList<String> list = new ArrayList<String>();
-        try {
-            while (s.hasNextLine()) {
-                list.add(s.nextLine());
-            }
-        } finally {
-            s.close();
-        }
-        if (list.size() > 0)
-            return list.get(new Random().nextInt(list.size()));
-        else
-            return "";
-    }
-
-
-
-
 
     /*
         All functions described below are executed in order to maintain Image Setter to work properly
 
-        fetch_API_Data - function that takes album ID and send a call to Imgur API in order to receive
+fetch_API_Data - function that takes album ID and send a call to Imgur API in order to receive
             an album JSON file and extract id of every picture in album. Returns a random URL of picture in given album
         Image_Loader - gets an URL of a random picture from album and loads it to ImageView
             on Success takes loading animation down
@@ -123,7 +89,7 @@ public class PressedActivity extends AppCompatActivity {
     private void Image_Setter() {
         imageView = (ImageView) findViewById(R.id.photo_view);
         builder = new Zoomy.Builder(this).target(imageView).enableImmersiveMode(false);
-        fetch_API_Data(bundle.getString("albumID"));
+        fetch_API_Data(bundle.getString("q"));
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.loading);
         animation.setDuration(1000);
@@ -132,15 +98,13 @@ public class PressedActivity extends AppCompatActivity {
         placeholderView.startAnimation(animation);
     }
 
-    private void fetch_API_Data(String albumUrl) {
-        String apiUrl = "https://api.imgur.com/3/album/" + albumUrl + "/images";
+    private void fetch_API_Data(String q) {
+        String apiUrl = "https://pixabay.com/api/?key=11903677-c64a686bb8d5cadc3763e6248&q="+q;
         OkHttpClient httpClient = new OkHttpClient.Builder().build();
-        ArrayList<String> imageIDs = new ArrayList<>();
+        ArrayList<String> imageUrl = new ArrayList<>();
 
         Request request = new Request.Builder()
                 .url(apiUrl)
-                .header("Authorization", "Client-ID 2878120ad1ed453")
-                .header("User-Agent", "ainalaiyn")
                 .build();
 
         httpClient.newCall(request).enqueue(new Callback() {
@@ -151,13 +115,13 @@ public class PressedActivity extends AppCompatActivity {
                 try {
                     assert response.body() != null;
                     jsonObject = new JSONObject(response.body().string());
-                    JSONArray dataArray = jsonObject.getJSONArray("data");
+                    JSONArray dataArray = jsonObject.getJSONArray("hits");
                     for (int i = 0; i < dataArray.length(); i++) {
                         JSONObject dataObject = dataArray.getJSONObject(i);
-                        String id = dataObject.getString("id");
-                        imageIDs.add(id);
+                        String url = dataObject.getString("webformatURL");
+                        imageUrl.add(url);
                     }
-                    Image_Loader(imageIDs, albumUrl);
+                    Image_Loader(imageUrl.get(0));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -167,25 +131,17 @@ public class PressedActivity extends AppCompatActivity {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 String TAG = "An error has occurred " + e;
                 Log.e(TAG, "An error has occurred " + e);
-                Image_Loader(imageIDs, albumUrl);
+                Image_Loader(imageUrl.get(0));
             }
 
         });
     }
 
-    public void Image_Loader(ArrayList<String> imageIDs, String albumUrl) {
-        String pictureUrl;
-
-        if (imageIDs.size() > 0) {
-            pictureUrl = imageIDs.get(new Random().nextInt(imageIDs.size()));
-        } else {
-            pictureUrl = Return_Random_Line("urls_" + albumUrl + ".txt");
-        }
+    public void Image_Loader(String url) {
 
         this.runOnUiThread(() -> {
-            System.out.println(pictureUrl);
             Picasso.get()
-                    .load("https://i.imgur.com/" + pictureUrl + ".jpg")
+                    .load(url)
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(imageView, new com.squareup.picasso.Callback() {
                         @Override
@@ -197,7 +153,7 @@ public class PressedActivity extends AppCompatActivity {
                         @Override
                         public void onError(Exception e) {
                             Picasso.get()
-                                    .load("https://i.imgur.com/" + pictureUrl + ".jpg")
+                                    .load(url)
                                     .into(imageView, new com.squareup.picasso.Callback() {
                                         @Override
                                         public void onSuccess() {
