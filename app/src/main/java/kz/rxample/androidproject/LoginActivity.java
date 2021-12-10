@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -50,26 +51,31 @@ public class LoginActivity extends AppCompatActivity {
                         .url("http://localhost:8080/login")
                         .post(formBody)
                         .build();
-                Call call = httpClient.newCall(request);
-                try {
-                    Response response = call.execute();
-                    if (response.code()==200){
-                        LoginActivity.this.startActivity(intentMain);
+                httpClient.newCall(request).enqueue(new Callback() {
+
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
                     }
-                    else if(response.code()==201){
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                        alertDialogBuilder.setMessage("Password invalid");
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    } else {
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                        alertDialogBuilder.setMessage("User not found");
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.code()==200){
+                            LoginActivity.this.startActivity(intentMain);
+                        }
+                        else if(response.code()==201){
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                            alertDialogBuilder.setMessage("Password invalid");
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        } else {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                            alertDialogBuilder.setMessage("User not found");
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                });
 
             }
         });

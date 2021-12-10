@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,21 +45,31 @@ public class RegActivity extends AppCompatActivity {
                         .url("http://localhost:8080/reg")
                         .post(formBody)
                         .build();
-                Call call = httpClient.newCall(request);
-                try {
-                    Response response = call.execute();
-                    if (response.code()==200){
-                        RegActivity.this.startActivity(intentMain);
+                httpClient.newCall(request).enqueue(new Callback() {
+
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
                     }
-                    else {
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegActivity.this);
-                        alertDialogBuilder.setMessage("User exist");
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try {
+                            response = call.execute();
+                            if (response.code()==200){
+                                RegActivity.this.startActivity(intentMain);
+                            }
+                            else {
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegActivity.this);
+                                alertDialogBuilder.setMessage("User exist");
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                });
 
             }
         });
