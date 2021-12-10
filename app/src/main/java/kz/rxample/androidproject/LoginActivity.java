@@ -48,14 +48,14 @@ public class LoginActivity extends AppCompatActivity {
                         .add("password", pass.getText().toString())
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://localhost:8080/login")
+                        .url("http://172.23.160.1:8080/login")
                         .post(formBody)
                         .build();
                 httpClient.newCall(request).enqueue(new Callback() {
 
                     @Override
                     public void onFailure(Call call, IOException e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -64,15 +64,19 @@ public class LoginActivity extends AppCompatActivity {
                             LoginActivity.this.startActivity(intentMain);
                         }
                         else if(response.code()==201){
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                            alertDialogBuilder.setMessage("Password invalid");
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
+                            runOnUiThread(() -> {
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                                alertDialogBuilder.setMessage("Password invalid");
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                            });
                         } else {
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                            alertDialogBuilder.setMessage("User not found");
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
+                            runOnUiThread(() -> {
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                                alertDialogBuilder.setMessage("User not found");
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                            });
                         }
                     }
                 });

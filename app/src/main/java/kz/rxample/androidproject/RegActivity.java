@@ -42,31 +42,26 @@ public class RegActivity extends AppCompatActivity {
                         .add("password", pass.getText().toString())
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://localhost:8080/reg")
+                        .url("http://172.23.160.1:8080/reg")
                         .post(formBody)
                         .build();
                 httpClient.newCall(request).enqueue(new Callback() {
 
                     @Override
                     public void onFailure(Call call, IOException e) {
-
+                        e.printStackTrace();
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        try {
-                            response = call.execute();
-                            if (response.code()==200){
-                                RegActivity.this.startActivity(intentMain);
-                            }
-                            else {
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegActivity.this);
-                                alertDialogBuilder.setMessage("User exist");
-                                AlertDialog alertDialog = alertDialogBuilder.create();
-                                alertDialog.show();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if (response.code()==200){
+                            RegActivity.this.startActivity(intentMain);
+                        }
+                        else {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegActivity.this);
+                            alertDialogBuilder.setMessage("User exist");
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
                         }
                     }
                 });

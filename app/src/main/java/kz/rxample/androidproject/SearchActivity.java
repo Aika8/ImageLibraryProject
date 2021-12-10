@@ -86,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private ArrayList<String> fetch_API_Data() {
-        String apiUrl = "https://pixabay.com/api/?key=11903677-c64a686bb8d5cadc3763e6248";
+        String apiUrl = "http://172.23.160.1:8080/photos";
         OkHttpClient httpClient = new OkHttpClient.Builder().build();
         ArrayList<String> imageUrl = new ArrayList<>();
 

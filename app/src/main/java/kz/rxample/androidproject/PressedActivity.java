@@ -99,7 +99,7 @@ fetch_API_Data - function that takes album ID and send a call to Imgur API in or
     }
 
     private void fetch_API_Data(String q) {
-        String apiUrl = "https://pixabay.com/api/?key=11903677-c64a686bb8d5cadc3763e6248&q="+q;
+        String apiUrl = "http://172.23.160.1:8080/photo?q="+q;
         OkHttpClient httpClient = new OkHttpClient.Builder().build();
         ArrayList<String> imageUrl = new ArrayList<>();
 
@@ -113,6 +113,7 @@ fetch_API_Data - function that takes album ID and send a call to Imgur API in or
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 JSONObject jsonObject = null;
                 try {
+                    System.out.println("on response");
                     assert response.body() != null;
                     jsonObject = new JSONObject(response.body().string());
                     JSONArray dataArray = jsonObject.getJSONArray("hits");
