@@ -14,8 +14,16 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,23 +40,37 @@ public class LoginActivity extends AppCompatActivity {
                         MainActivity.class);
                 EditText email = findViewById(R.id.editEmail);
                 EditText pass = findViewById(R.id.editPass);
-                sPref = getSharedPreferences("myPref", MODE_PRIVATE);
-
-                System.out.println(email);
-                System.out.println(pass);
-                System.out.println(sPref.getAll().get("ertaev@gmail.com"));
-                System.out.println(sPref.getAll().get(email.getText().toString()));
-                System.out.println(sPref.getAll().toString());
-                System.out.println(sPref.getAll());
-
-                if (sPref.getAll().get(email.getText().toString()) != null && sPref.getAll().get(email.getText().toString()).equals(pass.getText().toString())){
-                    LoginActivity.this.startActivity(intentMain);
-                } else {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-                    alertDialogBuilder.setMessage("Login invalid");
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+//                sPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                OkHttpClient httpClient = new OkHttpClient.Builder().build();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("email", email.getText().toString())
+                        .add("password", pass.getText().toString())
+                        .build();
+                Request request = new Request.Builder()
+                        .url("http://localhost:8080/login")
+                        .post(formBody)
+                        .build();
+                Call call = httpClient.newCall(request);
+                try {
+                    Response response = call.execute();
+                    if (response.code()==200){
+                        LoginActivity.this.startActivity(intentMain);
+                    }
+                    else if(response.code()==201){
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                        alertDialogBuilder.setMessage("Password invalid");
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    } else {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+                        alertDialogBuilder.setMessage("User not found");
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+
             }
         });
 
