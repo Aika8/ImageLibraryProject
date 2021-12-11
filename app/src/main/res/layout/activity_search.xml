@@ -40,7 +40,7 @@
         android:layout_marginVertical="20dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Search" />
+        android:hint="Search" />
 
     <ImageButton
         android:id="@+id/imageButton"

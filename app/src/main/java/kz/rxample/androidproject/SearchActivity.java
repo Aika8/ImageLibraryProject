@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -45,6 +49,9 @@ public class SearchActivity extends AppCompatActivity {
     private List<ImageView> imageView;
     private ImageView placeholderView;
     private Zoomy.Builder builder;
+    ImageButton imageButton;
+    String search = null;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,20 +80,34 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        imageButton = findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText s = findViewById(R.id.search_panel);
+                search = s.getText().toString();
+                createRecycleView();
+            }
+        });
+
+     if(search == null) {
+         createRecycleView();
+     }
+
+    }
+
+    private void createRecycleView(){
         recyclerView = findViewById(R.id.recyclerView);
         layoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
         fetch_API_Data();
-//        recyclerAdapter = new RecyclerViewAdapter(fetch_API_Data());
-//        recyclerView.setAdapter(recyclerAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
     }
 
 
     private ArrayList<String> fetch_API_Data() {
-        String apiUrl = "http://172.23.160.1:8080/photos";
+        String apiUrl = "http://172.23.160.1:8080/photos?q="+search;
         OkHttpClient httpClient = new OkHttpClient.Builder().build();
         ArrayList<String> imageUrl = new ArrayList<>();
 
