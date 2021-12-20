@@ -13,11 +13,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomBar;
+
+    RecyclerView recyclerView;
+    RecyclerTagAdapter recyclerAdapter;
+    List<String> tagList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +44,8 @@ public class MainActivity extends AppCompatActivity {
         // Initializing
         // Buttons
         Button button_wonder = findViewById(R.id.button_1);
-        Button button_happiness = findViewById(R.id.button_6);
-        Button button_heavy = findViewById(R.id.button_2);
-        Button button_miss = findViewById(R.id.button_5);
-        Button button_sadness = findViewById(R.id.button_3);
-        Button button_tiredness = findViewById(R.id.button_4);
 
         button_wonder.setOnTouchListener(purrListener);
-        button_happiness.setOnTouchListener(purrListener);
-        button_heavy.setOnTouchListener(purrListener);
-        button_miss.setOnTouchListener(purrListener);
-        button_sadness.setOnTouchListener(purrListener);
-        button_tiredness.setOnTouchListener(purrListener);
 
         bottomBar = findViewById(R.id.bottomBar);
 
@@ -58,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intentMain;
                 Toast.makeText(MainActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
                 switch (item.getTitle().toString()) {
-                    case "Favourite" :
+                    case "Profile" :
                         intentMain = new Intent(MainActivity.this,
-                                FavoritesActivity.class);
+                                ProfileActivity.class);
                         MainActivity.this.startActivity(intentMain);
                         break;
                     case "Search" :
@@ -85,25 +82,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onButtonClick(View view){
-        switch (view.getId()){
-            case R.id.button_1:
-                activitySwitcher( "cat");
-                break;
-            case R.id.button_2:
-                activitySwitcher( "dog");
-                break;
-            case R.id.button_3:
-                activitySwitcher("naruto");
-                break;
-            case R.id.button_4:
-                activitySwitcher("film");
-                break;
-            case R.id.button_5:
-                activitySwitcher("comic");
-                break;
-            case R.id.button_6:
-                activitySwitcher("art");
-                break;
+        Button button_wonder = findViewById(R.id.button_1);
+        if(view.getId() == R.id.button_1){
+            activitySwitcher(button_wonder.getText().toString());
         }
     }
 

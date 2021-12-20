@@ -11,14 +11,11 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Email"
-
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/editPass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEmail"
-        tools:ignore="NotSibling" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="61dp" />
 
     <EditText
         android:id="@+id/editPass"
@@ -28,16 +25,38 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAcount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editEmail" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="190dp" />
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="FullName"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="128dp" />
+
+    <EditText
+        android:id="@+id/editNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="text|phone"
+        android:minHeight="48dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="258dp" />
 
     <Button
         android:id="@+id/buttonAcount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
         android:background="@drawable/button_bg"
         android:text="Sign Up"
         android:textAllCaps="false"
@@ -46,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPass" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -59,8 +78,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.577"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.08" />
 </androidx.constraintlayout.widget.ConstraintLayout>

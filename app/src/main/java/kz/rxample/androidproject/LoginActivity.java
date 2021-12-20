@@ -41,7 +41,10 @@ public class LoginActivity extends AppCompatActivity {
                         MainActivity.class);
                 EditText email = findViewById(R.id.editEmail);
                 EditText pass = findViewById(R.id.editPass);
-//                sPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                sPref = getSharedPreferences("myPref", MODE_PRIVATE);
+                SharedPreferences.Editor ed = sPref.edit();
+                ed.putString("username", email.getText().toString());
+                ed.apply();
                 OkHttpClient httpClient = new OkHttpClient.Builder().build();
                 RequestBody formBody = new FormBody.Builder()
                         .add("email", email.getText().toString())

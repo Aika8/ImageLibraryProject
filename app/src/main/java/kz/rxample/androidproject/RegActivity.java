@@ -35,11 +35,15 @@ public class RegActivity extends AppCompatActivity {
                         LoginActivity.class);
                 EditText email = findViewById(R.id.editEmail);
                 EditText pass = findViewById(R.id.editPass);
+                EditText number = findViewById(R.id.editNumber);
+                EditText name = findViewById(R.id.editName);
 //                sPref = getSharedPreferences("myPref", MODE_PRIVATE);
                 OkHttpClient httpClient = new OkHttpClient.Builder().build();
                 RequestBody formBody = new FormBody.Builder()
                         .add("email", email.getText().toString())
                         .add("password", pass.getText().toString())
+                        .add("number", number.getText().toString())
+                        .add("name", name.getText().toString())
                         .build();
                 Request request = new Request.Builder()
                         .url("http://172.23.160.1:8080/reg")

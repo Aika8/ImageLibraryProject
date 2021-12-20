@@ -65,9 +65,9 @@ public class SearchActivity extends AppCompatActivity {
                 Intent intentMain;
                 Toast.makeText(SearchActivity.this, item.getTitle(), Toast.LENGTH_SHORT).show();
                 switch (item.getTitle().toString()) {
-                    case "Favourite" :
+                    case "Profile" :
                         intentMain = new Intent(SearchActivity.this,
-                                FavoritesActivity.class);
+                                ProfileActivity.class);
                         SearchActivity.this.startActivity(intentMain);
                         break;
                     case "home" :
