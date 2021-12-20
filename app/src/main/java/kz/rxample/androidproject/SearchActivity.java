@@ -107,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
     private ArrayList<String> fetch_API_Data() {
-        String apiUrl = "http://172.23.160.1:8080/photos?q="+search;
+        String apiUrl = "http://172.27.112.1:8080/photos?q="+search;
         OkHttpClient httpClient = new OkHttpClient.Builder().build();
         ArrayList<String> imageUrl = new ArrayList<>();
 

@@ -28,6 +28,7 @@
         <activity android:name=".PressedActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".FavoritesActivity" />
+        <activity android:name=".ProfileActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

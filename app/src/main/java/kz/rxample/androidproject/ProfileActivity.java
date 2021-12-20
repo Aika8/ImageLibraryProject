@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,12 +45,12 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.profile_activity);
         sPref = getSharedPreferences("myPref", MODE_PRIVATE);
         username = (String)sPref.getAll().get("username");
-        EditText name = findViewById(R.id.fullname_field);
-        EditText number = findViewById(R.id.number);
-        EditText pass = findViewById(R.id.password);
+        TextInputEditText name = (TextInputEditText)findViewById(R.id.fullname_field);
+        TextInputEditText number = (TextInputEditText)findViewById(R.id.number);
+        TextInputEditText pass = (TextInputEditText)findViewById(R.id.password);
+        TextView usernameView = findViewById(R.id.username_field);
 
-
-        String apiUrl = "http://172.23.160.1:8080/user?username="+username;
+        String apiUrl = "http://172.27.112.1:8080/user?username="+username;
         OkHttpClient httpClient = new OkHttpClient.Builder().build();
         Request request = new Request.Builder()
                 .url(apiUrl)
@@ -74,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity {
                             name.setText((String)finalJsonObject.get("name"), TextView.BufferType.EDITABLE);
                             number.setText((String)finalJsonObject.get("number"), TextView.BufferType.EDITABLE);
                             pass.setText((String)finalJsonObject.get("password"), TextView.BufferType.EDITABLE);
+                            usernameView.setText(username, TextView.BufferType.EDITABLE);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -162,4 +164,5 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
+
 }

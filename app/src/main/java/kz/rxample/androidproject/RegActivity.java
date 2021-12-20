@@ -46,7 +46,7 @@ public class RegActivity extends AppCompatActivity {
                         .add("name", name.getText().toString())
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://172.23.160.1:8080/reg")
+                        .url("http://172.27.112.1:8080/reg")
                         .post(formBody)
                         .build();
                 httpClient.newCall(request).enqueue(new Callback() {

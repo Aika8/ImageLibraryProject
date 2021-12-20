@@ -46,7 +46,7 @@
             android:gravity="center"
             android:background="@drawable/background">
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="179dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
@@ -71,7 +71,7 @@
 
                 </RelativeLayout>
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
 
     </RelativeLayout>
@@ -84,7 +84,6 @@
         android:padding="20dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fullname_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full Name"
@@ -94,6 +93,7 @@
             android:textColorHint="#FFFF00">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fullname_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp" />
@@ -101,7 +101,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
@@ -110,6 +109,7 @@
             android:textColorHint="#FFFF00">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp" />
@@ -117,7 +117,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -126,6 +125,7 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp" />

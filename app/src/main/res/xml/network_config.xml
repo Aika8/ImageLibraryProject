@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">172.23.160.1</domain>
+        <domain includeSubdomains="true">172.27.112.1</domain>
     </domain-config>
     <domain-config cleartextTrafficPermitted="false">
         <domain includeSubdomains="true">pixabay.com</domain>
